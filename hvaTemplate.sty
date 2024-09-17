@@ -1,0 +1,105 @@
+\ProvidesPackage{hvaTemplate}
+% standard packages %
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{csquotes}
+\RequirePackage{caption}
+\RequirePackage{subcaption}
+\RequirePackage{xspace}
+\RequirePackage{makecell}
+\RequirePackage[perpage]{footmisc}
+
+\RequirePackage[pdftex,pdfpagelabels,bookmarks,hyperindex,hyperfigures,hidelinks]{hyperref}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage[nameinlink,noabbrev,dutch]{cleveref}
+
+\RequirePackage{siunitx}
+\sisetup{detect-all}
+\DeclareSIUnit{\belmilliwatt}{Bm}
+\DeclareSIUnit[scientific-notation = false]{\decibel}{\deci\bel}
+
+% graphics
+\RequirePackage{txfonts}
+\RequirePackage{pgfplots}
+\RequirePackage{graphicx}
+\RequirePackage[left=2cm,right=2cm,top=2.2cm,bottom=4cm]{geometry}
+\RequirePackage{listings}  % for code
+\RequirePackage{xcolor} % needs to be after listings
+
+% Headers and foot notes %
+\RequirePackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\includegraphics[width=.4\textwidth]{Logos/HvA-Lerarenopleidingen-zwart-RGB.pdf}}
+\fancyhead[RE,LO]{\@doctitle}
+\fancyfoot[CE,CO]{\rightmark}
+\fancyfoot[LE,RO]{\thepage}
+\setlength{\headsep}{45pt}
+\setlength{\headheight}{40pt}
+
+
+% make a titlepage %
+\def \@doctitle {Title}
+\def \@extraInfo {Groep/Team/Vak}
+\def \@docAuthor {name/names}
+
+\newcommand{\setTitle}[1]{\def \@doctitle {#1}}
+\newcommand{\extraInfo}[1]{\def \@extraInfo {#1}}
+\newcommand{\setAuthor}[1]{\def \@docAuthor {#1}}
+
+
+\newcommand{\makeTitlepage}{
+	\begin{titlepage}
+		\begin{center}
+			\includegraphics[width=0.7\textwidth]{Logos/HvA_compact_zwart_RGB.pdf}
+			\\[0.5cm]
+			{\Large \@extraInfo}
+			\\[0.5cm]
+			\rule{\linewidth}{0.5mm}\\[0.4cm]
+			{\huge \bfseries \@doctitle \\[0.4cm]}
+			\rule{\linewidth}{0.5mm}\\[1.5cm]
+
+			\noindent
+			\emph{Auteurs:} 
+			\@docAuthor
+			\\[10cm]
+			Datum: \today
+		\end{center}
+	\end{titlepage}
+}
+
+\newcommand{\hvaCopyright}{
+	\vfill
+	\noindent
+	\copyright 2020 Copyright Hogeschool van Amsterdam
+
+	\noindent
+	Alle rechten voorbehouden. Niets uit deze uitgave mag worden verveelvoudigd, 
+	opgeslagen in een geautomatiseerd gegevensbestand, of openbaar gemaakt, 
+	in enige vorm of op enige wijze, hetzij elektronisch, mechanisch, door print-outs, kopieën, 
+	of op welke manier dan ook, zonder voorafgaande schriftelijke toestemming van de Hogeschool van Amsterdam.
+	\newpage
+}
+
+\newcommand{\authorsCopyright}{
+	\mbox{}
+    \vfill
+    \noindent
+	\copyright 2024 Copyright
+
+	\noindent
+	Alle rechten voorbehouden. Niets uit dit verslag mag worden verveelvoudigd, 
+	opgeslagen in een geautomatiseerd gegevensbestand, of openbaar gemaakt, 
+	in enige vorm of op enige wijze, hetzij elektronisch, mechanisch, door print-outs, kopieën, 
+	of op welke manier dan ook, zonder voorafgaande schriftelijke toestemming van de auteurs.
+	\newpage
+}
+
+\usepackage{titlesec}
+
+\setcounter{secnumdepth}{4}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}

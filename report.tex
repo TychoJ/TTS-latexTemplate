@@ -1,0 +1,58 @@
+\documentclass[12pt, a4paper, twoside]{article}
+
+\usepackage[dutch]{babel}
+\usepackage{hvaTemplate}
+\usepackage{hvaFoo}
+
+\usepackage[backend=biber, style=apa]{biblatex}
+
+\pgfplotsset{compat=1.18}
+
+% Zorg ervoor dat captions niet lijken op paragrafen
+\captionsetup{width=0.85\textwidth}
+
+
+\addbibresource{references.bib}
+
+\setAuthor{
+    \begin{table}[h!]
+        \centering
+        \begin{tabular}{ll}
+            student        & (std nmr)\\
+        \end{tabular}
+    \end{table}
+}
+\extraInfo{Vak}
+\setTitle{Titel}
+
+\graphicspath{ {img/} }
+
+\numberwithin{equation}{section}
+
+\begin{document}
+    \makeTitlepage
+
+    \authorsCopyright
+    \newpage
+
+    \hvaCopyright
+    \newpage
+
+    \tableofcontents
+    \newpage
+
+    \section{Inleiding}
+
+    \lesplan{}
+
+    \observatie{}
+
+    \newpage
+
+    \printbibliography[heading=bibintoc]
+
+    \newpage
+    \appendix
+    \newpage
+
+\end{document}

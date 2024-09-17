@@ -1,0 +1,252 @@
+\ProvidesPackage{hvaFoo}
+
+\RequirePackage{xkeyval}
+\RequirePackage{multirow}
+
+\RequirePackage{pgfmath}
+\RequirePackage{pgffor}
+
+% Declaration of options for lesson plan
+\define@cmdkey      [tts] {lesplanOpties}     {student}  {}
+\define@cmdkey      [tts] {lesplanOpties}     {opleiding}  {}
+\define@cmdkey      [tts] {lesplanOpties}     {hvaBegeleider}  {}
+\define@cmdkey      [tts] {lesplanOpties}     {onderwerp}  {}
+\define@cmdkey      [tts] {lesplanOpties}     {datumLes}  {}
+\define@cmdkey      [tts] {lesplanOpties}     {datumLesplan}  {}
+\define@cmdkey      [tts] {lesplanOpties}     {stageSchool}  {}
+\define@cmdkey      [tts] {lesplanOpties}     {onderwijsType}  {}
+\define@cmdkey      [tts] {lesplanOpties}     {klas}  {}
+\define@cmdkey      [tts] {lesplanOpties}     {vak}  {}
+\define@cmdkey      [tts] {lesplanOpties}     {werkplekBegeleider}  {}
+\define@cmdkey      [tts] {lesplanOpties}     {leerdoelen}  {}
+\define@cmdkey      [tts] {lesplanOpties}     {beginSituatie}  {}
+\define@cmdkey      [tts] {lesplanOpties}     {benodigdheden}  {}
+\define@cmdkey      [tts] {lesplanOpties}     {persoonlijkeLeerdoelen} {}
+
+\define@cmdkey      [tts] {lesplanOpties}     {sDuur} {}
+\define@cmdkey      [tts] {lesplanOpties}     {sStof} {}
+\define@cmdkey      [tts] {lesplanOpties}     {sVorm} {}
+\define@cmdkey      [tts] {lesplanOpties}     {slln} {}
+\define@cmdkey      [tts] {lesplanOpties}     {sIk} {}
+\define@cmdkey      [tts] {lesplanOpties}     {sOverig} {}
+\define@cmdkey      [tts] {lesplanOpties}     {sWaarom} {}
+
+\define@cmdkey      [tts] {lesplanOpties}     {mDuur} {}
+\define@cmdkey      [tts] {lesplanOpties}     {mStof} {}
+\define@cmdkey      [tts] {lesplanOpties}     {mVorm} {}
+\define@cmdkey      [tts] {lesplanOpties}     {mlln} {}
+\define@cmdkey      [tts] {lesplanOpties}     {mIk} {}
+\define@cmdkey      [tts] {lesplanOpties}     {mOverig} {}
+\define@cmdkey      [tts] {lesplanOpties}     {mWaarom} {}
+
+\define@cmdkey      [tts] {lesplanOpties}     {eDuur} {}
+\define@cmdkey      [tts] {lesplanOpties}     {eStof} {}
+\define@cmdkey      [tts] {lesplanOpties}     {eVorm} {}
+\define@cmdkey      [tts] {lesplanOpties}     {elln} {}
+\define@cmdkey      [tts] {lesplanOpties}     {eIk} {}
+\define@cmdkey      [tts] {lesplanOpties}     {eOverig} {}
+\define@cmdkey      [tts] {lesplanOpties}     {eWaarom} {}
+
+% % Setting default values
+\presetkeys         [tts] {lesplanOpties} {
+    student = [naam],
+    opleiding = [eigen opleiding],
+    hvaBegeleider = [naam],
+    onderwerp = [onderwerp],
+    datumLes = [datum vd les],
+    datumLesplan = [datum lesplan],
+    stageSchool = [stage school],
+    onderwijsType = [onderwijs type],
+    klas = [klas],
+    vak = [vak],
+    werkplekBegeleider = [naam],
+    leerdoelen = {1. leerdoel 1 \\ 2. leerdoel 2 \\ 3. leerdoel 3 \\ 4. leerdoel 4 \\ 5. leerdoel 5 \\ ...},
+    beginSituatie = [begin situatie van de doelgroep],
+    benodigdheden = [benodigdheden voor de les],
+    persoonlijkeLeerdoelen = Niet opgesteld voor deze les.,
+%
+    sDuur = [tijd],
+    sStof = [lesstof],
+    sVorm = [werkvorm beschrijving],
+    slln = [wat doen de leerlingen],
+    sIk = [wat doe ik],
+    sOverig = ,
+    sWaarom = ,
+%
+    mDuur = [tijd],
+    mStof = [lesstof],
+    mVorm = [werkvorm beschrijving],
+    mlln = [wat doen de leerlingen],
+    mIk = [wat doe ik],
+    mOverig = ,
+    mWaarom = ,
+%
+    eDuur = [tijd],
+    eStof = [lesstof],
+    eVorm = [werkvorm beschrijving],
+    elln = [wat doen de leerlingen],
+    eIk = [wat doe ik],
+    eOverig = ,
+    eWaarom = ,
+}{}
+
+% Definition of the command
+\newcommand{\lesplan}[1]{
+    \setkeys[tts]{lesplanOpties}{#1}
+
+    \begin{center}
+        \begin{tabular}{|p{0.22\textwidth}p{0.22\textwidth}|p{0.22\textwidth}p{0.22\textwidth}|} \hline
+            \multicolumn{4}{|c|}{\textbf{Lesplan}} \\\hline\hline
+
+            Naam student & \cmdtts@lesplanOpties@student & Stage school & \cmdtts@lesplanOpties@stageSchool\\
+            Opleiding & \cmdtts@lesplanOpties@opleiding & Onderwijs type & \cmdtts@lesplanOpties@onderwijsType\\
+            HvA begeleider & \cmdtts@lesplanOpties@hvaBegeleider & Klas & \cmdtts@lesplanOpties@klas\\
+            & & Vak & \cmdtts@lesplanOpties@vak\\
+            Datum lesplan & \cmdtts@lesplanOpties@datumLesplan & Datum vd les & \cmdtts@lesplanOpties@datumLes\\\hline
+
+            \multicolumn{4}{|c|}{Leerdoelen:} \\\hline
+            \multicolumn{4}{|l|}{\makecell[cl]{\cmdtts@lesplanOpties@leerdoelen}} \\\hline
+
+            \multicolumn{4}{|c|}{Begin situatie:} \\\hline
+            \multicolumn{4}{|l|}{\makecell[cl]{\cmdtts@lesplanOpties@beginSituatie}} \\\hline
+
+            \multicolumn{4}{|c|}{benodigdheden:} \\\hline
+            \multicolumn{4}{|l|}{\makecell[cl]{\cmdtts@lesplanOpties@benodigdheden}} \\\hline
+
+            \multicolumn{4}{|c|}{Persoonlijke leerdoelen:} \\\hline
+            \multicolumn{4}{|l|}{\makecell[cl]{\cmdtts@lesplanOpties@persoonlijkeLeerdoelen}} \\\hline\hline
+
+
+            \multicolumn{4}{|c|}{Lesplanning:} \\\hline
+
+            \multirow{7}{4em}{Start van de les} & \multicolumn{1}{|l|}{Duur} & \multicolumn{2}{|l|}{\cmdtts@lesplanOpties@sDuur} \\\cline{2-4}
+            
+            & \multicolumn{1}{|l|}{lesstof} & \multicolumn{2}{|l|}{\cmdtts@lesplanOpties@sStof} \\\cline{2-4}
+            & \multicolumn{1}{|l|}{werkvorm} & \multicolumn{2}{|l|}{\cmdtts@lesplanOpties@sVorm} \\\cline{2-4}
+            & \multicolumn{1}{|l|}{wat doen de leerlingen} & \multicolumn{2}{|l|}{\cmdtts@lesplanOpties@slln} \\\cline{2-4}
+            & \multicolumn{1}{|l|}{wat doe ik} & \multicolumn{2}{|l|}{\cmdtts@lesplanOpties@sIk} \\\cline{2-4}
+            & \multicolumn{1}{|l|}{Overige opmerkingen} & \multicolumn{2}{|l|}{\cmdtts@lesplanOpties@sOverig} \\\cline{2-4}
+            & \multicolumn{1}{|l|}{waarom} & \multicolumn{2}{|l|}{\cmdtts@lesplanOpties@sWaarom} \\\hline
+
+            \multirow{7}{4em}{Midden van de les} & \multicolumn{1}{|l|}{Duur} & \multicolumn{2}{|l|}{\cmdtts@lesplanOpties@mDuur} \\\cline{2-4}
+            
+            & \multicolumn{1}{|l|}{lesstof} & \multicolumn{2}{|l|}{\cmdtts@lesplanOpties@mStof} \\\cline{2-4}
+            & \multicolumn{1}{|l|}{werkvorm} & \multicolumn{2}{|l|}{\cmdtts@lesplanOpties@mVorm} \\\cline{2-4}
+            & \multicolumn{1}{|l|}{wat doen de leerlingen} & \multicolumn{2}{|l|}{\cmdtts@lesplanOpties@mlln} \\\cline{2-4}
+            & \multicolumn{1}{|l|}{wat doe ik} & \multicolumn{2}{|l|}{\cmdtts@lesplanOpties@mIk} \\\cline{2-4}
+            & \multicolumn{1}{|l|}{Overige opmerkingen} & \multicolumn{2}{|l|}{\cmdtts@lesplanOpties@mOverig} \\\cline{2-4}
+            & \multicolumn{1}{|l|}{waarom} & \multicolumn{2}{|l|}{\cmdtts@lesplanOpties@mWaarom} \\\hline
+
+            \multirow{7}{4em}{Einde van de les} & \multicolumn{1}{|l|}{Duur} & \multicolumn{2}{|l|}{\cmdtts@lesplanOpties@eDuur} \\\cline{2-4}
+            
+            & \multicolumn{1}{|l|}{lesstof} & \multicolumn{2}{|l|}{\cmdtts@lesplanOpties@eStof} \\\cline{2-4}
+            & \multicolumn{1}{|l|}{werkvorm} & \multicolumn{2}{|l|}{\cmdtts@lesplanOpties@eVorm} \\\cline{2-4}
+            & \multicolumn{1}{|l|}{wat doen de leerlingen} & \multicolumn{2}{|l|}{\cmdtts@lesplanOpties@elln} \\\cline{2-4}
+            & \multicolumn{1}{|l|}{wat doe ik} & \multicolumn{2}{|l|}{\cmdtts@lesplanOpties@eIk} \\\cline{2-4}
+            & \multicolumn{1}{|l|}{Overige opmerkingen} & \multicolumn{2}{|l|}{\cmdtts@lesplanOpties@eOverig} \\\cline{2-4}
+            & \multicolumn{1}{|l|}{waarom} & \multicolumn{2}{|l|}{\cmdtts@lesplanOpties@eWaarom} \\\hline
+
+        \end{tabular}
+    \end{center}
+}
+
+
+\define@cmdkey      [tts] {observatie}     {werkplekBegeleider}  {}
+\define@cmdkey      [tts] {observatie}     {student}  {}
+\define@cmdkey      [tts] {observatie}     {stageSchool}  {}
+\define@cmdkey      [tts] {observatie}     {vak}  {}
+\define@cmdkey      [tts] {observatie}     {klas}  {}
+\define@cmdkey      [tts] {observatie}     {datum}  {}
+
+\define@cmdkey      [tts] {observatie}     {ga}  {}
+\define@cmdkey      [tts] {observatie}     {gb}  {}
+\define@cmdkey      [tts] {observatie}     {gc}  {}
+\define@cmdkey      [tts] {observatie}     {gd}  {}
+\define@cmdkey      [tts] {observatie}     {ge}  {}
+\define@cmdkey      [tts] {observatie}     {gf}  {}
+\define@cmdkey      [tts] {observatie}     {gg}  {}
+\define@cmdkey      [tts] {observatie}     {gh}  {}
+\define@cmdkey      [tts] {observatie}     {gi}  {}
+\define@cmdkey      [tts] {observatie}     {gj}  {}
+
+\define@cmdkey      [tts] {observatie}     {ba}  {}
+\define@cmdkey      [tts] {observatie}     {bb}  {}
+\define@cmdkey      [tts] {observatie}     {bc}  {}
+\define@cmdkey      [tts] {observatie}     {bd}  {}
+\define@cmdkey      [tts] {observatie}     {be}  {}
+\define@cmdkey      [tts] {observatie}     {bf}  {}
+\define@cmdkey      [tts] {observatie}     {bg}  {}
+\define@cmdkey      [tts] {observatie}     {bh}  {}
+\define@cmdkey      [tts] {observatie}     {bi}  {}
+\define@cmdkey      [tts] {observatie}     {bj}  {}
+
+\presetkeys         [tts] {observatie} {
+    werkplekBegeleider = [naam],
+    student = [naam],
+    stageSchool = [stage school],
+    vak = [vak],
+    klas = [klas],
+    datum = [datum],
+%
+    ga = [ja/nee],
+    gb = [ja/nee],
+    gc = [ja/nee],
+    gd = [ja/nee],
+    ge = [ja/nee],
+    gf = [ja/nee],
+    gg = [ja/nee],
+    gh = [ja/nee],
+    gi = [ja/nee],
+    gj = [ja/nee],
+%
+    ba = ,
+    bb = ,
+    bc = ,
+    bd = ,
+    be = ,
+    bf = ,
+    bg = ,
+    bh = ,
+    bi = ,
+    bj = ,
+}{}
+
+\newcommand{\observatie}[1]{
+    \setkeys[tts]{observatie}{#1}
+
+    \begin{tabular}{|p{0.29\textwidth}|p{0.29\textwidth}|p{0.29\textwidth}|} \hline
+        \multicolumn{3}{|c|}{\textbf{observatie formulier lesuitvoer}} \\\hline\hline
+
+        \multicolumn{3}{|l|}{\makecell[cl]{
+            Naam werkplek begeleider: \cmdtts@observatie@werkplekBegeleider\\
+            Naam student: \cmdtts@observatie@student\\
+            Naam stage school: \cmdtts@observatie@stageSchool\\
+            vak: \cmdtts@observatie@vak\\
+            klas: \cmdtts@observatie@klas\\
+            datum les:  \cmdtts@observatie@datum
+        }} \\\hline\hline
+        \makecell[cc]{\textbf{Handelen van de student}} & \makecell[cc]{\textbf{Gezien? (ja/nee)}} & \textbf{Beschrijving gedrag van de student. Welke tips en tops heeft u voor de student?} \\\hline
+
+        1. Introduceert de les op movtiverende wijze & \makecell[cc]{\cmdtts@observatie@ga} & \cmdtts@observatie@ba\\\hline
+
+        2. Benoemt de lesdoelen en het programma van de les & \makecell[cc]{\cmdtts@observatie@gb} & \cmdtts@observatie@bb \\\hline
+
+        3. Benoemt wat het lesprogramma inhoudt en maakt dit zichtbaar voor de leerlingen/ studenten & \makecell[cc]{\cmdtts@observatie@gc} & \cmdtts@observatie@bc \\\hline
+
+        4. Activeert relevante voorkennis van de leerlingen/studenten & \makecell[cc]{\cmdtts@observatie@gd} & \cmdtts@observatie@bd \\\hline
+
+        5. Legt onderdelen uit: & \makecell[cc]{\cmdtts@observatie@ge} & \cmdtts@observatie@be \\\hline
+
+        6. Reageert op bijdragen van leerlingen/ studenten en gaat na of belangrijke begrippen en vaardigheden zijn overgekomen. & \makecell[cc]{\cmdtts@observatie@gf} & \cmdtts@observatie@bf \\\hline
+
+        7. Geeft een volledige instructie (Wat, met wie, hoe lang, hulp?, klaar? Resultaat?) voorafgaand aan de zelfwerkzaamheid. & \makecell[cc]{\cmdtts@observatie@gg} & \cmdtts@observatie@bg \\\hline
+
+        8. Begeleidt leerlingen/studenten wanneer ze zelf aan het werk zijn met de opdracht en houdt toezicht op zelfwerkzaamheid. & \makecell[cc]{\cmdtts@observatie@gh} & \cmdtts@observatie@bh \\\hline
+
+        9. Rondt de les af en checkt of de doelen zijn bereikt aan het einde van de les.& \makecell[cc]{\cmdtts@observatie@gi} & \cmdtts@observatie@bi \\\hline
+
+        10. Voert een specifieke handeling uit die past bij een persoonlijk leerdoel van de lerende om te voorzien in de basisbehoeften van de leerlingen/ studenten. & \makecell[cc]{\cmdtts@observatie@gj} & \cmdtts@observatie@bj \\\hline
+
+
+    \end{tabular}
+}
